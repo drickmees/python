@@ -24,7 +24,7 @@ def obtenTem(t):
 url1='https://www.wunderground.com/history/airport/MMMX/'
 url3='/DailyHistory.html'
 
-os.chdir(r'C:/Users/mrmendo/Documents/temperaturas')
+os.chdir(r'C:/../Documents/temperaturas')
 f=open('fechas0.txt')
 matriz = np.array([0, 0, 0,0], np.int32)
 
