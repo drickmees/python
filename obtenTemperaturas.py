@@ -12,23 +12,41 @@ __author__ = 'mrmendo'
 from bs4 import BeautifulSoup
 import urllib
 import os
-import numpy
+import numpy as np
+
+def obtenTem(t):
+ t=t.replace('<span class="wx-value">',"")
+ t=t.replace('</span>',"")
+ t=int(float(t))
+ return (t)
+
 
 url1='https://www.wunderground.com/history/airport/MMMX/'
 url3='/DailyHistory.html'
 
 os.chdir(r'C:/Users/mrmendo/Documents/temperaturas')
-f=open('fechas.txt')
+f=open('fechas0.txt')
+matriz = np.array([0, 0, 0,0], np.int32)
 
 for line in f:
  print line
- url2=str(line.rstrip("\n"))
- url=url1+url2+url3
+ url=url1+str(line.rstrip("\n"))+url3
  print url
- #r = urllib.urlopen(url).read()
-
-
-
-
+ r = urllib.urlopen(url).read()
+ soup = BeautifulSoup(r)
+ datosT = soup.find_all("span", class_="wx-value")
+ tmedia=obtenTem(str(datosT[0]))
+ tmaxima=obtenTem(str(datosT[1]))
+ tminima=obtenTem(str(datosT[4]))
+ precipitacion=obtenTem(str(datosT[8]))
+ #print'Temperatura media: ', tmedia
+ #print'Temperatura maxima: ', tmaxima
+ #print'Temperatura minima: ', tminima
+ #print'Mm de lluvia: ', precipitacion
+ vector=[tmedia,tmaxima,tminima, precipitacion]
+ matriz=np.vstack([matriz,vector])
+ #print matriz
 
 f.close()
+
+np.savetxt("datosAeropuertoMMMX.csv", matriz, delimiter=",")
