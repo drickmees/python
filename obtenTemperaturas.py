@@ -1,3 +1,12 @@
+# Este script descarga las temperaturas maxima, promedio y minima, y precipitacion
+# desde el sitio https://www.wunderground.com/history/airport/MMMX/
+# la url puede cambiarse en la variable url1 por ejemplo a
+# https://www.wunderground.com/history/airport/KLRD/. Las fechas de
+# obtencion estan en el archivo fechas0.txt, al final la url completa se
+# guarda en la variable url. El resultado es un csv donde la primera columna es
+# la temperatura promedio, segunda es la maxima, tercera es la minima, y la cuarta
+# columna es la precipitacion en mm; cada fila corresponde a los datos de cada dia.
+
 __author__ = 'mrmendo'
 
 from bs4 import BeautifulSoup
